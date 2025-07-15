@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QLOO - Places</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="movies.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html"><h1>QLOO</h1></a>
+        </div>
+        <div class="nav-links">
+            <a href="movies.html" class="nav-item">Movies</a>
+            <a href="books.html" class="nav-item">Books</a>
+            <a href="songs.html" class="nav-item">Songs</a>
+            <a href="places.html" class="nav-item active">Places</a>
+        </div>
+        <div class="retro-game-box"></div>
+    </nav>
+
+    <main class="places-container">
+        <div class="search-container">
+            <input type="text" placeholder="Search places..." class="search-input">
+            <button class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+
+        <div class="places-grid">
+            <!-- Places will be dynamically inserted here -->
+        </div>
+    </main>
+
+    <script src="places.js"></script>
+    <script src="retro-video.js"></script>
+</body>
+</html>
