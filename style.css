@@ -17,7 +17,7 @@ body {
     font-family: 'Space Grotesk', sans-serif;
     background-color: #f8edd7;
     color: #2c2c2c;
-    min-height: 100vh;
+    max-height: 100vh;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
@@ -78,7 +78,7 @@ body {
 
 /* Search Container Styles */
 .search-container {
-    max-width: 600px;
+    max-width: 1000px;
     margin: 3rem auto;
     position: relative;
     padding: 0 2rem;

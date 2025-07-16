@@ -1,3 +1,7 @@
+// QLOO API Configuration
+const QLOO_API_KEY = 'your_qloo_api_key_here';
+const QLOO_API_BASE_URL = 'https://api.qloo.com/v1';
+
 // DOM Elements
 const searchInput = document.querySelector('.search-input');
 const searchButton = document.querySelector('.search-button');
@@ -6,13 +10,71 @@ const navItems = document.querySelectorAll('.nav-item');
 // Add smooth scroll behavior
 document.documentElement.style.scrollBehavior = 'smooth';
 
+// QLOO API Functions
+async function searchQLOO(query, type) {
+    try {
+        const response = await fetch(`${QLOO_API_BASE_URL}/search`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${QLOO_API_KEY}`
+            },
+            body: JSON.stringify({
+                query: query,
+                type: type,
+                limit: 20
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('API request failed');
+        }
+
+        const data = await response.json();
+        return data.results;
+    } catch (error) {
+        console.error('Error searching QLOO:', error);
+        return [];
+    }
+}
+
+async function getRecommendations(itemId, type) {
+    try {
+        const response = await fetch(`${QLOO_API_BASE_URL}/recommendations`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${QLOO_API_KEY}`
+            },
+            body: JSON.stringify({
+                item_id: itemId,
+                type: type,
+                limit: 10
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('API request failed');
+        }
+
+        const data = await response.json();
+        return data.recommendations;
+    } catch (error) {
+        console.error('Error getting recommendations:', error);
+        return [];
+    }
+}
+
 // Search functionality
-function handleSearch() {
+async function handleSearch() {
     const searchTerm = searchInput.value.trim();
     if (searchTerm) {
-        // TODO: Implement search functionality with QLOO API
-        console.log('Searching for:', searchTerm);
-        // You can add your search logic here
+        const currentPage = window.location.pathname.split('/').pop().split('.')[0];
+        const type = currentPage === 'index' ? 'all' : currentPage;
+        
+        const results = await searchQLOO(searchTerm, type);
+        // Emit custom event for page-specific handling
+        window.dispatchEvent(new CustomEvent('qlooSearchResults', { detail: results }));
     }
 }
 
